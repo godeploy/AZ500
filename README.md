@@ -4,9 +4,8 @@ This repository is a collection of setup scripts for GoDeploy AZ500 labs. They c
 
 ### Log into the go deploy LMS to access your lab environment
 
-<a href="https://lms.godeploy.it
-" target="_blank">
-   # go deploy LMS
+<a href="https://lms.godeploy.it" target="_blank">
+    go deploy LMS
 </a>
 
 
