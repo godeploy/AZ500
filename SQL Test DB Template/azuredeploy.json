@@ -44,17 +44,7 @@
                 "autoExecuteValue": "Disabled"
             }
         },
-        {
-            "type": "Microsoft.Sql/servers/advisors",
-            "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_az500labserver_name'), '/DbParameterization')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
-            ],
-            "properties": {
-                "autoExecuteValue": "Disabled"
-            }
-        },
+        
         {
             "type": "Microsoft.Sql/servers/advisors",
             "apiVersion": "2014-04-01",
@@ -128,18 +118,6 @@
                 "fullAuditLogsTableName": "SQLDBAuditLogsAz500labserverMaster",
                 "auditLogsTableName": "Az500labserverMaster",
                 "retentionDays": "0"
-            }
-        },
-        {
-            "type": "Microsoft.Sql/servers/databases/geoBackupPolicies",
-            "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_az500labserver_name'), '/master/Default')]",
-            "location": "East US",
-            "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
-            ],
-            "properties": {
-                "state": "Enabled"
             }
         },
         {
@@ -273,18 +251,6 @@
                 "autoExecuteValue": "Disabled"
             }
         },
-        {
-            "type": "Microsoft.Sql/servers/databases/advisors",
-            "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_az500labserver_name'), '/AZ500LabDb/DbParameterization')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_az500labserver_name'), 'AZ500LabDb')]",
-                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
-            ],
-            "properties": {
-                "autoExecuteValue": "Disabled"
-            }
-        },
              {
             "type": "Microsoft.Sql/servers/databases/advisors",
             "apiVersion": "2014-04-01",
@@ -325,19 +291,6 @@
                 "fullAuditLogsTableName": "SQLDBAuditLogsAz500labserverAz500labdb",
                 "auditLogsTableName": "Az500labserverAz500labdb",
                 "retentionDays": "0"
-            }
-        },
-        {
-            "type": "Microsoft.Sql/servers/databases/geoBackupPolicies",
-            "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_az500labserver_name'), '/AZ500LabDb/Default')]",
-            "location": "East US",
-            "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_az500labserver_name'), 'AZ500LabDb')]",
-                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
-            ],
-            "properties": {
-                "state": "Enabled"
             }
         },
         {
