@@ -3,29 +3,29 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "collation": {
-            "type": "string"
+            "type": "SQL_Latin1_General_CP1_CI_AS"
         },
         "databaseName": {
-            "type": "string"
+            "type": "AdventureWorksLT"
         },
         "tier": {
             "type": "string"
         },
         "skuName": {
-            "type": "string"
+            "type": "basic"
         },
         "maxSizeBytes": {
-            "type": "int"
+            "type": "2147483648"
         },
         "serverName": {
-            "type": "string"
+            "type": "AdventureWorksLT"
         },
         "serverLocation": {
             "type": "string"
         },
         "sampleName": {
             "type": "string",
-            "defaultValue": ""
+            "defaultValue": "AdventureWorksLT"
         },
         "zoneRedundant": {
             "type": "bool",
