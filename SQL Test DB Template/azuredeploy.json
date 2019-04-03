@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "servers_az500labserver_name": {
+        "SQL Server Name": {
             "defaultValue": "az500labserver",
             "type": "string"
         },
@@ -24,7 +24,7 @@
         {
             "type": "Microsoft.Sql/servers",
             "apiVersion": "2015-05-01-preview",
-            "name": "[parameters('servers_az500labserver_name')]",
+            "name": "[parameters('SQL Server Name')]",
             "location": "eastus",
             "kind": "v12.0",
             "properties": {
@@ -36,9 +36,9 @@
         {
             "type": "Microsoft.Sql/servers/firewallRules",
             "apiVersion": "2015-05-01-preview",
-            "name": "[concat(parameters('servers_az500labserver_name'), '/AllowAllWindowsAzureIps')]",
+            "name": "[concat(parameters('SQL Server Name'), '/AllowAllWindowsAzureIps')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+                "[resourceId('Microsoft.Sql/servers', parameters('SQL Server Name'))]"
             ],
             "properties": {
                 "startIpAddress": "0.0.0.0",
@@ -48,10 +48,10 @@
         {
             "type": "Microsoft.Sql/servers/databases",
             "apiVersion": "2017-03-01-preview",
-            "name": "[concat(parameters('servers_az500labserver_name'), '/AZ500LabDb')]",
+            "name": "[concat(parameters('SQL Server Name'), '/AZ500LabDb')]",
             "location": "eastus",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+                "[resourceId('Microsoft.Sql/servers', parameters('SQL Server Name'))]"
             ],
             "sku": {
                 "name": "Basic",
