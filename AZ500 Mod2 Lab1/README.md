@@ -1,4 +1,4 @@
-# GoDeploy SQL Template database deployment 
+# go deploy AZ500 Mod2 Lab1 setup
 
 Click **Deploy to Azure**
  
