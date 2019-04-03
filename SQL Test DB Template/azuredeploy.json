@@ -5,7 +5,13 @@
         "servers_az500labserver_name": {
             "defaultValue": "az500labserver",
             "type": "String"
-        }
+        },
+        "sqlAdministratorLoginPassword": {
+            "type": "securestring",
+            "metadata": {
+              "description": "The administrator password of the SQL Server."
+            }
+          }
     },
     "variables": {},
     "resources": [
@@ -17,6 +23,7 @@
             "kind": "v12.0",
             "properties": {
                 "administratorLogin": "sqladmin",
+                "administratorLoginPassword": "[parameters('sqlAdministratorLoginPassword')]",
                 "version": "12.0"
             }
         },
