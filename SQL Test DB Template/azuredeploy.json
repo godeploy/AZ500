@@ -58,17 +58,6 @@
         {
             "type": "Microsoft.Sql/servers/advisors",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_az500labserver_name'), '/DefragmentIndex')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
-            ],
-            "properties": {
-                "autoExecuteValue": "Disabled"
-            }
-        },
-        {
-            "type": "Microsoft.Sql/servers/advisors",
-            "apiVersion": "2014-04-01",
             "name": "[concat(parameters('servers_az500labserver_name'), '/DropIndex')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
