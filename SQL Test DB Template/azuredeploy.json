@@ -4,7 +4,7 @@
     "parameters": {
         "servers_az500labserver_name": {
             "defaultValue": "az500labserver",
-            "type": "String"
+            "type": "string"
         },
         "sqlAdministratorLogin": {
             "defaultValue": "sqladmin",
