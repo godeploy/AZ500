@@ -1,145 +1,404 @@
 {
-    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "collation": {
-            "type": "string",
-            "defaultvalue": "SQL_Latin1_General_CP1_CI_AS"
-        },
-        "databaseName": {
-            "type": "string"
-        },
-        "tier": {
-            "type": "string"
-        },
-        "skuName": {
-            "type": "string"
-        },
-        "maxSizeBytes": {
-            "type": "int"
-        },
-        "serverName": {
-            "type": "string"
-        },
-        "serverLocation": {
-            "type": "string"
-        },
-        "sampleName": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "zoneRedundant": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "licenseType": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "readScaleOut": {
-            "type": "string",
-            "defaultValue": "Disabled"
-        },
-        "numberOfReplicas": {
-            "type": "int",
-            "defaultValue": 0
-        },
-        "minCapacity": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "autoPauseDelay": {
-            "type": "string",
-            "defaultValue": ""
-        },
-        "databaseTags": {
-            "type": "object",
-            "defaultValue": {}
-        },
-        "enableADS": {
-            "type": "bool",
-            "defaultValue": false
-        },
-        "enableVA": {
-            "type": "bool",
-            "defaultValue": false
+        "servers_az500labserver_name": {
+            "defaultValue": "az500labserver",
+            "type": "String"
         }
     },
+    "variables": {},
     "resources": [
         {
-            "condition": "[parameters('enableVA')]",
-            "apiVersion": "2016-01-01",
-            "type": "Microsoft.Storage/storageAccounts",
-            "name": "[variables('storageName')]",
-            "location": "[parameters('serverLocation')]",
-            "sku": {
-                "name": "Standard_LRS"
-            },
-            "kind": "Storage",
-            "properties": {}
+            "type": "Microsoft.Sql/servers",
+            "apiVersion": "2015-05-01-preview",
+            "name": "[parameters('servers_az500labserver_name')]",
+            "location": "eastus",
+            "kind": "v12.0",
+            "properties": {
+                "administratorLogin": "sqladmin",
+                "version": "12.0"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/advisors",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/CreateIndex')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "autoExecuteValue": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/advisors",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/DbParameterization')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "autoExecuteValue": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/advisors",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/DefragmentIndex')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "autoExecuteValue": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/advisors",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/DropIndex')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "autoExecuteValue": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/advisors",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/ForceLastGoodPlan')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "autoExecuteValue": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/auditingPolicies",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/Default')]",
+            "location": "East US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "auditingState": "New",
+                "eventTypesToAudit": "PlainSQL_Success,PlainSQL_Failure,ParameterizedSQL_Success,ParameterizedSQL_Failure,StoredProcedure_Success,StoredProcedure_Failure,Login_Success,Login_Failure,TransactionManagement_Success,TransactionManagement_Failure",
+                "fullAuditLogsTableName": "SQLDBAuditLogsAz500labserver",
+                "auditLogsTableName": "Az500labserver",
+                "retentionDays": "0"
+            }
         },
         {
             "type": "Microsoft.Sql/servers/databases",
-            "apiVersion": "2017-10-01-preview",
-            "location": "[parameters('serverLocation')]",
-            "tags": "[parameters('databaseTags')]",
-            "name": "[concat(parameters('serverName'), '/', parameters('databaseName'))]",
-            "properties": {
-                "collation": "[parameters('collation')]",
-                "maxSizeBytes": "[parameters('maxSizeBytes')]",
-                "sampleName": "[parameters('sampleName')]",
-                "zoneRedundant": "[parameters('zoneRedundant')]",
-                "licenseType": "[parameters('licenseType')]",
-                "readScale": "[parameters('readScaleOut')]",
-                "readReplicaCount": "[parameters('numberOfReplicas')]",
-                "minCapacity": "[parameters('minCapacity')]",
-                "autoPauseDelay": "[parameters('autoPauseDelay')]"
-            },
+            "apiVersion": "2017-03-01-preview",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/AZ500LabDb')]",
+            "location": "eastus",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
             "sku": {
-                "name": "[parameters('skuName')]",
-                "tier": "[parameters('tier')]"
+                "name": "Basic",
+                "tier": "Basic"
+            },
+            "kind": "v12.0,user",
+            "properties": {
+                "collation": "SQL_Latin1_General_CP1_CI_AS",
+                "maxSizeBytes": 2147483648,
+                "catalogCollation": "SQL_Latin1_General_CP1_CI_AS",
+                "zoneRedundant": false
             }
         },
         {
-            "condition": "[parameters('enableADS')]",
-            "apiVersion": "2017-03-01-preview",
-            "type": "Microsoft.Sql/servers/securityAlertPolicies",
-            "name": "[concat(parameters('serverName'), '/Default')]",
+            "type": "Microsoft.Sql/servers/databases/auditingPolicies",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/master/Default')]",
+            "location": "East US",
             "dependsOn": [
-                "[concat('Microsoft.Sql/servers/', parameters('serverName'), '/databases/', parameters('databaseName'))]"
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
             ],
             "properties": {
-                "state": "Enabled",
-                "disabledAlerts": [],
-                "emailAddresses": [],
-                "emailAccountAdmins": true
+                "auditingState": "New",
+                "eventTypesToAudit": "PlainSQL_Success,PlainSQL_Failure,ParameterizedSQL_Success,ParameterizedSQL_Failure,StoredProcedure_Success,StoredProcedure_Failure,Login_Success,Login_Failure,TransactionManagement_Success,TransactionManagement_Failure",
+                "useServerDefault": "Enabled",
+                "fullAuditLogsTableName": "SQLDBAuditLogsAz500labserverMaster",
+                "auditLogsTableName": "Az500labserverMaster",
+                "retentionDays": "0"
             }
         },
         {
-            "condition": "[parameters('enableVA')]",
-            "apiVersion": "2018-06-01-preview",
-            "type": "Microsoft.Sql/servers/vulnerabilityAssessments",
-            "name": "[concat(parameters('serverName'), '/Default')]",
-            "properties": {
-                "storageContainerPath": "[if(parameters('enableVA'), concat(reference(variables('storageName'), '2018-02-01').primaryEndpoints.blob, 'vulnerability-assessment'), '')]",
-                "storageAccountAccessKey": "[if(parameters('enableVA'), listKeys(variables('storageName'), '2018-02-01').keys[0].value, '')]",
-                "recurringScans": {
-                    "isEnabled": true,
-                    "emailSubscriptionAdmins": true,
-                    "emails": []
-                }
-            },
+            "type": "Microsoft.Sql/servers/databases/geoBackupPolicies",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/master/Default')]",
+            "location": "East US",
             "dependsOn": [
-                "[concat('Microsoft.Sql/servers/', parameters('serverName'), '/databases/', parameters('databaseName'))]",
-                "[concat('Microsoft.Storage/storageAccounts/', variables('storageName'))]",
-                "[concat('Microsoft.Sql/servers/', parameters('serverName'), '/securityAlertPolicies/Default')]"
-            ]
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "state": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/securityAlertPolicies",
+            "apiVersion": "2018-06-01-preview",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/master/Default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "state": "Disabled",
+                "disabledAlerts": [
+                    ""
+                ],
+                "emailAddresses": [
+                    ""
+                ],
+                "emailAccountAdmins": false,
+                "storageEndpoint": "",
+                "storageAccountAccessKey": "",
+                "retentionDays": 0
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/transparentDataEncryption",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/master/current')]",
+            "location": "East US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "status": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/vulnerabilityAssessments",
+            "apiVersion": "2017-03-01-preview",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/master/Default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "recurringScans": {
+                    "isEnabled": false,
+                    "emailSubscriptionAdmins": true
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/encryptionProtector",
+            "apiVersion": "2015-05-01-preview",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/current')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "kind": "servicemanaged",
+            "properties": {
+                "serverKeyName": "ServiceManaged",
+                "serverKeyType": "ServiceManaged"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/firewallRules",
+            "apiVersion": "2015-05-01-preview",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/AllowAllWindowsAzureIps')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "startIpAddress": "0.0.0.0",
+                "endIpAddress": "0.0.0.0"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/keys",
+            "apiVersion": "2015-05-01-preview",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/ServiceManaged')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "kind": "servicemanaged",
+            "properties": {
+                "serverKeyType": "ServiceManaged"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/securityAlertPolicies",
+            "apiVersion": "2017-03-01-preview",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/Default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "state": "Disabled",
+                "disabledAlerts": [
+                    ""
+                ],
+                "emailAddresses": [
+                    ""
+                ],
+                "emailAccountAdmins": false,
+                "storageEndpoint": "",
+                "storageAccountAccessKey": "",
+                "retentionDays": 0
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/vulnerabilityAssessments",
+            "apiVersion": "2018-06-01-preview",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/Default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "recurringScans": {
+                    "isEnabled": false,
+                    "emailSubscriptionAdmins": true
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/advisors",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/AZ500LabDb/CreateIndex')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_az500labserver_name'), 'AZ500LabDb')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "autoExecuteValue": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/advisors",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/AZ500LabDb/DbParameterization')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_az500labserver_name'), 'AZ500LabDb')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "autoExecuteValue": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/advisors",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/AZ500LabDb/DefragmentIndex')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_az500labserver_name'), 'AZ500LabDb')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "autoExecuteValue": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/advisors",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/AZ500LabDb/DropIndex')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_az500labserver_name'), 'AZ500LabDb')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "autoExecuteValue": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/advisors",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/AZ500LabDb/ForceLastGoodPlan')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_az500labserver_name'), 'AZ500LabDb')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "autoExecuteValue": "Disabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/auditingPolicies",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/AZ500LabDb/Default')]",
+            "location": "East US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_az500labserver_name'), 'AZ500LabDb')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "auditingState": "New",
+                "eventTypesToAudit": "PlainSQL_Success,PlainSQL_Failure,ParameterizedSQL_Success,ParameterizedSQL_Failure,StoredProcedure_Success,StoredProcedure_Failure,Login_Success,Login_Failure,TransactionManagement_Success,TransactionManagement_Failure",
+                "useServerDefault": "Enabled",
+                "fullAuditLogsTableName": "SQLDBAuditLogsAz500labserverAz500labdb",
+                "auditLogsTableName": "Az500labserverAz500labdb",
+                "retentionDays": "0"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/geoBackupPolicies",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/AZ500LabDb/Default')]",
+            "location": "East US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_az500labserver_name'), 'AZ500LabDb')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "state": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/securityAlertPolicies",
+            "apiVersion": "2018-06-01-preview",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/AZ500LabDb/Default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_az500labserver_name'), 'AZ500LabDb')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "state": "Disabled",
+                "disabledAlerts": [
+                    ""
+                ],
+                "emailAddresses": [
+                    ""
+                ],
+                "emailAccountAdmins": false,
+                "storageEndpoint": "",
+                "storageAccountAccessKey": "",
+                "retentionDays": 0
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/transparentDataEncryption",
+            "apiVersion": "2014-04-01",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/AZ500LabDb/current')]",
+            "location": "East US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_az500labserver_name'), 'AZ500LabDb')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "status": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/vulnerabilityAssessments",
+            "apiVersion": "2017-03-01-preview",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/AZ500LabDb/Default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_az500labserver_name'), 'AZ500LabDb')]",
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "recurringScans": {
+                    "isEnabled": false,
+                    "emailSubscriptionAdmins": true
+                }
+            }
         }
-    ],
-    "variables": {
-        "subscriptionId": "[subscription().subscriptionId]",
-        "resourceGroupName": "[resourceGroup().name]",
-        "uniqueStorage": "[uniqueString(variables('subscriptionId'), variables('resourceGroupName'), parameters('serverLocation'))]",
-        "storageName": "[tolower(concat('sqlva', variables('uniqueStorage')))]"
-    }
+    ]
 }
