@@ -21,10 +21,10 @@
             "value": "AdventureWorksLT"
         },
         "serverLocation": {
-            "value": "uksouth"
+            "value": ""
         },
         "serverName": {
-            "value": "kramittestdb"
+            "value": ""
         },
         "zoneRedundant": {
             "value": false
