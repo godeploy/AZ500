@@ -6,6 +6,13 @@
             "defaultValue": "az500labserver",
             "type": "String"
         },
+        "sqlAdministratorLogin": {
+            "defaultValue": "sqladmin",
+            "type": "string",
+            "metadata": {
+              "description": "The administrator username of the SQL Server."
+            }
+          },
         "sqlAdministratorLoginPassword": {
             "type": "securestring",
             "metadata": {
@@ -22,7 +29,7 @@
             "location": "eastus",
             "kind": "v12.0",
             "properties": {
-                "administratorLogin": "sqladmin",
+                "administratorLogin": "[parameters('sqlAdministratorLogin')]",
                 "administratorLoginPassword": "[parameters('sqlAdministratorLoginPassword')]",
                 "version": "12.0"
             }
