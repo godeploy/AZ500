@@ -34,6 +34,18 @@
             }
         },
         {
+            "type": "Microsoft.Sql/servers/firewallRules",
+            "apiVersion": "2015-05-01-preview",
+            "name": "[concat(parameters('servers_az500labserver_name'), '/AllowAllWindowsAzureIps')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_az500labserver_name'))]"
+            ],
+            "properties": {
+                "startIpAddress": "0.0.0.0",
+                "endIpAddress": "0.0.0.0"
+            }
+        },
+        {
             "type": "Microsoft.Sql/servers/databases",
             "apiVersion": "2017-03-01-preview",
             "name": "[concat(parameters('servers_az500labserver_name'), '/AZ500LabDb')]",
