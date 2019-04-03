@@ -3,7 +3,8 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "collation": {
-            "value": "SQL_Latin1_General_CP1_CI_AS"
+            "type": "string",
+            "defaultvalue": "SQL_Latin1_General_CP1_CI_AS"
         },
         "databaseName": {
             "type": "string"
