@@ -4,7 +4,7 @@
     "parameters": {
         "collation": {
             "type": "string",
-            "value": "SQL_Latin1_General_CP1_CI_AS"
+            "defaultvalue": "SQL_Latin1_General_CP1_CI_AS"
         },
         "databaseName": {
             "type": "string"
