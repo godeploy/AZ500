@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "Storage account name": {
-            "defaultValue": "[toLower( concat( 'az500mod4lab4', uniqueString(resourceGroup().id) ) )]",
+            "defaultValue": "[variables('storageName')]",
             "type": "string"
         },
         "SQL Server Name": {
@@ -23,7 +23,10 @@
             }
           }
     },
-    "variables": {},
+    "variables": {
+
+        "storageName": "[toLower( concat( 'az500mod4lab4', uniqueString(resourceGroup().id) ) )]"
+    },
     "resources": [
         {
             "type": "Microsoft.Storage/storageAccounts",
