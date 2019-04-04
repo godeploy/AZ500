@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "Storage account name": {
-            "defaultValue": "az500mod4lab3",
+            "defaultValue": "[concat('az500mod4lab3', substring(uniqueString(resourceGroup().id),0,6))]",
             "type": "string"
         },
         "SQL Server Name": {
