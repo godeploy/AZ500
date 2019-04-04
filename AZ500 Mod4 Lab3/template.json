@@ -9,17 +9,9 @@
         "storageName": "[toLower( concat( 'az500mod4', uniqueString(resourceGroup().id) ) )]",
         "SQL Server Name":"[toLower( concat( 'az500mod4', uniqueString(resourceGroup().id) ) )]",
         "sqlAdministratorLogin":"sqladmin",
-        "sqlAdministratorLoginPassword":"Pa55w.rd",
-        "rgName":"az500mod4lab3",
-        "rgLocation": "eastus"
+        "sqlAdministratorLoginPassword":"Pa55w.rd"
     },
     "resources": [
-        {
-            "type": "Microsoft.Resources/resourceGroups",
-            "apiVersion": "2018-05-01",
-            "location": "[variables('rgLocation')]",
-            "name": "[variables('rgName')]"
-          },
         {
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2018-07-01",
