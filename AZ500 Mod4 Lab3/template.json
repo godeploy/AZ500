@@ -25,7 +25,7 @@
     },
     "variables": {
 
-        "storageName": "[toLower( concat( 'az500mod4lab4', uniqueString(resourceGroup().id) ) )]"
+        "storageName": "[toLower( concat( 'az500mod4', uniqueString(resourceGroup().id) ) )]"
     },
     "resources": [
         {
