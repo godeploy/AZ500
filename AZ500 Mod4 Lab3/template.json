@@ -2,30 +2,14 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "Storage account name": {
-            "defaultValue": "[variables('storageName')]",
-            "type": "string"
-        },
-        "SQL Server Name": {
-            "defaultValue": "az500labserver",
-            "type": "string"
-        },
-        "sqlAdministratorLogin": {
-            "type": "string",
-            "metadata": {
-              "description": "The administrator username of the SQL Server."
-            }
-          },
-        "sqlAdministratorLoginPassword": {
-            "type": "securestring",
-            "metadata": {
-              "description": "The administrator password of the SQL Server."
-            }
-          }
+
     },
     "variables": {
 
-        "storageName": "[toLower( concat( 'az500mod4', uniqueString(resourceGroup().id) ) )]"
+        "storageName": "[toLower( concat( 'az500mod4', uniqueString(resourceGroup().id) ) )]",
+        "SQL Server Name":"[toLower( concat( 'az500mod4', uniqueString(resourceGroup().id) ) )]",
+        "sqlAdministratorLogin":"sqladmin",
+        "sqlAdministratorLoginPassword":"Pa55w.rd"
     },
     "resources": [
         {
@@ -64,21 +48,21 @@
         {
             "type": "Microsoft.Sql/servers",
             "apiVersion": "2015-05-01-preview",
-            "name": "[parameters('SQL Server Name')]",
+            "name": "[variables('SQL Server Name')]",
             "location": "eastus",
             "kind": "v12.0",
             "properties": {
-                "administratorLogin": "[parameters('sqlAdministratorLogin')]",
-                "administratorLoginPassword": "[parameters('sqlAdministratorLoginPassword')]",
+                "administratorLogin": "[variables('sqlAdministratorLogin')]",
+                "administratorLoginPassword": "[variables('sqlAdministratorLoginPassword')]",
                 "version": "12.0"
             }
         },
         {
             "type": "Microsoft.Sql/servers/firewallRules",
             "apiVersion": "2015-05-01-preview",
-            "name": "[concat(parameters('SQL Server Name'), '/AllowAllWindowsAzureIps')]",
+            "name": "[concat(variables('SQL Server Name'), '/AllowAllWindowsAzureIps')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers', parameters('SQL Server Name'))]"
+                "[resourceId('Microsoft.Sql/servers', variables('SQL Server Name'))]"
             ],
             "properties": {
                 "startIpAddress": "0.0.0.0",
@@ -88,10 +72,10 @@
         {
             "type": "Microsoft.Sql/servers/databases",
             "apiVersion": "2017-03-01-preview",
-            "name": "[concat(parameters('SQL Server Name'), '/AZ500LabDb')]",
+            "name": "[concat(variables('SQL Server Name'), '/AZ500LabDb')]",
             "location": "eastus",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers', parameters('SQL Server Name'))]"
+                "[resourceId('Microsoft.Sql/servers', variables('SQL Server Name'))]"
             ],
             "sku": {
                 "name": "Basic",
