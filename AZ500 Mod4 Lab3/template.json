@@ -31,7 +31,7 @@
         {
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2018-07-01",
-            "name": "[parameters('Storage account name')]",
+            "name": "[variables('storageName')]",
             "location": "eastus",
             "sku": {
                 "name": "Standard_RAGRS",
