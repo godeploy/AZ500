@@ -1,0 +1,114 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "Storage account name": {
+            "defaultValue": "az500mod4lab3",
+            "type": "string"
+        },
+        "SQL Server Name": {
+            "defaultValue": "az500labserver",
+            "type": "string"
+        },
+        "sqlAdministratorLogin": {
+            "type": "string",
+            "metadata": {
+              "description": "The administrator username of the SQL Server."
+            }
+          },
+        "sqlAdministratorLoginPassword": {
+            "type": "securestring",
+            "metadata": {
+              "description": "The administrator password of the SQL Server."
+            }
+          }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2018-07-01",
+            "name": "[parameters('Storage account name')]",
+            "location": "eastus",
+            "sku": {
+                "name": "Standard_RAGRS",
+                "tier": "Standard"
+            },
+            "kind": "StorageV2",
+            "properties": {
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "enabled": true
+                        },
+                        "blob": {
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                },
+                "accessTier": "Hot"
+            }
+        },
+        
+        {
+            "type": "Microsoft.Sql/servers",
+            "apiVersion": "2015-05-01-preview",
+            "name": "[parameters('SQL Server Name')]",
+            "location": "eastus",
+            "kind": "v12.0",
+            "properties": {
+                "administratorLogin": "[parameters('sqlAdministratorLogin')]",
+                "administratorLoginPassword": "[parameters('sqlAdministratorLoginPassword')]",
+                "version": "12.0"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/firewallRules",
+            "apiVersion": "2015-05-01-preview",
+            "name": "[concat(parameters('SQL Server Name'), '/AllowAllWindowsAzureIps')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('SQL Server Name'))]"
+            ],
+            "properties": {
+                "startIpAddress": "0.0.0.0",
+                "endIpAddress": "0.0.0.0"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases",
+            "apiVersion": "2017-03-01-preview",
+            "name": "[concat(parameters('SQL Server Name'), '/AZ500LabDb')]",
+            "location": "eastus",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('SQL Server Name'))]"
+            ],
+            "sku": {
+                "name": "Basic",
+                "tier": "Basic"
+            },
+            "kind": "v12.0,user",
+            "properties": {
+                "collation": "SQL_Latin1_General_CP1_CI_AS",
+                "maxSizeBytes": 2147483648,
+                "catalogCollation": "SQL_Latin1_General_CP1_CI_AS",
+                "zoneRedundant": false,
+                "sampleName":"AdventureWorksLT"
+            }
+        }
+    
+  
+      
+ 
+
+      
+
+    ]
+}
