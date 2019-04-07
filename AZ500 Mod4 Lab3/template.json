@@ -1,15 +1,12 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
-
-    },
+    "parameters": {},
     "variables": {
-
         "storageName": "[toLower( concat( 'az500mod4', uniqueString(resourceGroup().id) ) )]",
-        "SQL Server Name":"[toLower( concat( 'az500mod4', uniqueString(resourceGroup().id) ) )]",
-        "sqlAdministratorLogin":"sqladmin",
-        "sqlAdministratorLoginPassword":"Pa55w.rd"
+        "SQL Server Name": "[toLower( concat( 'az500mod4', uniqueString(resourceGroup().id) ) )]",
+        "sqlAdministratorLogin": "sqladmin",
+        "sqlAdministratorLoginPassword": "Pa55w.rd"
     },
     "resources": [
         {
@@ -44,7 +41,6 @@
                 "accessTier": "Hot"
             }
         },
-        
         {
             "type": "Microsoft.Sql/servers",
             "apiVersion": "2015-05-01-preview",
@@ -87,15 +83,8 @@
                 "maxSizeBytes": 2147483648,
                 "catalogCollation": "SQL_Latin1_General_CP1_CI_AS",
                 "zoneRedundant": false,
-                "sampleName":"AdventureWorksLT"
+                "sampleName": "AdventureWorksLT"
             }
         }
-    
-  
-      
- 
-
-      
-
     ]
 }
