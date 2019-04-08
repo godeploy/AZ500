@@ -12,8 +12,6 @@
         "components_name": "[toLower( concat( 'component', uniqueString(resourceGroup().id) ) )]",
       
         "storage_account_name":"[toLower( concat( 'storage', uniqueString(resourceGroup().id) ) )]",
-
-        "alert_rules": "FailureAnomalies"
    
         
 
