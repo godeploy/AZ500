@@ -13,7 +13,7 @@
       
         "storage_account_name":"[toLower( concat( 'storage', uniqueString(resourceGroup().id) ) )]",
 
-        "alert_rules": "Failure Anomalies "
+        "alert_rules": "Failure Anomalies"
    
         
 
