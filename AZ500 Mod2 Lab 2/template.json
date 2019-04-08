@@ -91,7 +91,7 @@
                 "[resourceId('microsoft.insights/components', variables('components_name'))]"
             ],
             "tags": {
-                "hidden-link:/subscriptions/fda37569-dc85-4c7d-afcf-d3baa43821e1/resourceGroups/testappmike/providers/microsoft.insights/components/testappmike": "Resource"
+              
             },
             "properties": {
                 "name": "[variables('alert_rules')]",
@@ -179,7 +179,7 @@
                 "httpLoggingEnabled": false,
                 "logsDirectorySizeLimit": 35,
                 "detailedErrorLoggingEnabled": false,
-                "publishingUsername": "$testappmike",
+                "publishingUsername": "$publishaccount",
                 "scmType": "None",
                 "use32BitWorkerProcess": true,
                 "webSocketsEnabled": false,
@@ -255,7 +255,7 @@
                 "[resourceId('Microsoft.Web/sites', variables('sites_name'))]"
             ],
             "properties": {
-                "siteName": "testappmike",
+                "siteName": "[variables('sites_name')]",
                 "hostNameType": "Verified"
             }
         }
