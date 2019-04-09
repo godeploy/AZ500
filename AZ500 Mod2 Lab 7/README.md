@@ -7,7 +7,7 @@ Click **Deploy to Azure**
 
 The resource group name must be Test-FW-RG
  
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FGoDeploy%2FAZ500%2Fmaster%2FAZ500%20Mod2%20Lab7%2Ftemplate.json
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FGoDeploy%2FAZ500%2Fmaster%2FAZ500%20Mod2%20Lab%207%2Ftemplate.json
 " target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
