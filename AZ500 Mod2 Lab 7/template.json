@@ -434,6 +434,7 @@
                 "osProfile": {
                     "computerName": "[parameters('virtualMachines_Srv_Jump_name')]",
                     "adminUsername": "azureuser",
+                    "adminPassword" : "Azure123456!",
                     "windowsConfiguration": {
                         "provisionVMAgent": true,
                         "enableAutomaticUpdates": true
@@ -485,6 +486,7 @@
                 "osProfile": {
                     "computerName": "[parameters('virtualMachines_Srv_Work_name')]",
                     "adminUsername": "azureuser",
+                    "adminPassword": "Azure123456!",
                     "windowsConfiguration": {
                         "provisionVMAgent": true,
                         "enableAutomaticUpdates": true
