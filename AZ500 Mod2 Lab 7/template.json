@@ -425,7 +425,7 @@
                         "caching": "ReadWrite",
                         "managedDisk": {
                             "storageAccountType": "Premium_LRS",
-                            "id": "[resourceId('Microsoft.Compute/disks', concat(parameters('virtualMachines_Srv_Jump_name'), '_OsDisk_1_3d65499f1f76463ab31b970d6a05091f'))]"
+                           
                         },
                         "diskSizeGB": 127
                     },
@@ -476,7 +476,7 @@
                         "caching": "ReadWrite",
                         "managedDisk": {
                             "storageAccountType": "Premium_LRS",
-                            "id": "[resourceId('Microsoft.Compute/disks', concat(parameters('virtualMachines_Srv_Work_name'), '_OsDisk_1_702785710c46462e82ccac7b5382f7c4'))]"
+                         
                         },
                         "diskSizeGB": 127
                     },
