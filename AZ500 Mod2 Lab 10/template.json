@@ -2,14 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "certificates_AzureClassicRunAsCertificate_base64Value": {
-            "defaultValue": null,
-            "type": "SecureString"
-        },
-        "certificates_AzureRunAsCertificate_base64Value": {
-            "defaultValue": null,
-            "type": "SecureString"
-        },
         "virtualMachines_UpdateLabVM_name": {
             "defaultValue": "UpdateLabVM",
             "type": "String"
@@ -240,7 +232,7 @@
                 "description": "This certificate is used to authenticate with Azure so that you can manage Azure classic resources from runbooks. For details on this certificate, or to manage it, go to this account’s Settings.  For example usage, see the tutorial runbook in this account.",
                 "isExportable": false,
                 "thumbprint": "B601454CE93A4336DEC6E2BAA584C224A7EE8206",
-                "base64Value": "[parameters('certificates_AzureClassicRunAsCertificate_base64Value')]"
+                
             }
         },
         {
@@ -254,7 +246,7 @@
                 "description": "This certificate is used to authenticate with the service principal that was automatically created for this account. For details on this service principal and certificate, or to recreate them, go to this account’s Settings. For example usage, see the tutorial runbook in this account.",
                 "isExportable": true,
                 "thumbprint": "2D851DA6CA5632E5E44DF62E5D24EDB3F4A1ED57",
-                "base64Value": "[parameters('certificates_AzureRunAsCertificate_base64Value')]"
+                
             }
         },
         {
