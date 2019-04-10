@@ -1,0 +1,33 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "certificates_AzureClassicRunAsCertificate_base64Value": {
+            "value": null
+        },
+        "certificates_AzureRunAsCertificate_base64Value": {
+            "value": null
+        },
+        "virtualMachines_UpdateLabVM_name": {
+            "value": null
+        },
+        "virtualNetworks_Updates_vnet_name": {
+            "value": null
+        },
+        "networkInterfaces_updatelabvm528_name": {
+            "value": null
+        },
+        "publicIPAddresses_UpdateLabVM_ip_name": {
+            "value": null
+        },
+        "automationAccounts_MyAutomation_name": {
+            "value": null
+        },
+        "networkSecurityGroups_UpdateLabVM_nsg_name": {
+            "value": null
+        },
+        "schedules_shutdown_computevm_updatelabvm_name": {
+            "value": null
+        }
+    }
+}
