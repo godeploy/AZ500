@@ -35,11 +35,16 @@
     "resources": [
         {
             "type": "Microsoft.Automation/automationAccounts",
-            "apiVersion": "2015-10-31",
-            "name": "[parameters('automationAccounts_MyAutomation_name')]",
+            "apiVersion": "2015-10-31",           
             "location": "eastus",
-            "properties": {}
-        },
+            "name": "[parameters('automationAccounts_MyAutomation_name')]",
+            "properties": {
+                "sku":{
+                    "name" :"Basic"
+                            }
+            }
+        }
+        ,
         {
             "type": "Microsoft.Network/networkSecurityGroups",
             "apiVersion": "2018-12-01",
