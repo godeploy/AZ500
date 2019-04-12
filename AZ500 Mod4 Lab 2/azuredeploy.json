@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "SQL Server Name": {
-            "defaultValue": "az500labserver",
+            "defaultValue": "az500labserver2",
             "type": "string"
         }
     },
