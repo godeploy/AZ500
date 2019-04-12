@@ -8,6 +8,6 @@ Click **Deploy to Azure**, this will load the template into azure for deployment
  
  The firewall rules for the SQL server are set to allow all azure clients to access
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FGoDeploy%2FAZ500%2Fmaster%2FAZ500%20Mod4%20Lab%201%2Fazuredeploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FGoDeploy%2FAZ500%2Fmaster%2FAZ500%20Mod4%20Lab%202%2Fazuredeploy.json"  target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
