@@ -3,6 +3,8 @@
 Click **Deploy to Azure**
  
 Lab setup for Mod2 Lab 10.
+
+This template will create a single virtual machine called "UpdateLabVM"
  
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FGoDeploy%2FAZ500%2Fmaster%2FAZ500%20Mod2%20Lab%2010%2Ftemplate.json
 " target="_blank">
