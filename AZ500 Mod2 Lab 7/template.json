@@ -433,8 +433,8 @@
                 },
                 "osProfile": {
                     "computerName": "[parameters('virtualMachines_Srv_Jump_name')]",
-                    "adminUsername": "azureuser",
-                    "adminPassword" : "Azure123456!",
+                    "adminUsername": "localadmin",
+                    "adminPassword" : "Pa55w.rd1234",
                     "windowsConfiguration": {
                         "provisionVMAgent": true,
                         "enableAutomaticUpdates": true
@@ -485,8 +485,8 @@
                 },
                 "osProfile": {
                     "computerName": "[parameters('virtualMachines_Srv_Work_name')]",
-                    "adminUsername": "azureuser",
-                    "adminPassword": "Azure123456!",
+                    "adminUsername": "localadmin",
+                    "adminPassword": "Pa55w.rd1234",
                     "windowsConfiguration": {
                         "provisionVMAgent": true,
                         "enableAutomaticUpdates": true
