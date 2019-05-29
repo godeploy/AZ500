@@ -13,11 +13,9 @@ $eventhub = "",
 #################################################
 # Load the System.Web assembly to enable UrlEncode
 
+$webDLLPath = $psscriptroot
 
-
-[Reflection.Assembly]::LoadFile( `
-  'C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\System.Web.dll')`
-  | out-null 
+[Reflection.Assembly]::LoadFile( "$webDllPath\System.Web.dll") | out-null 
 
 $method = "POST"
 $URI = "https://$eventhubnamespace.servicebus.windows.net/$eventhub/messages"
