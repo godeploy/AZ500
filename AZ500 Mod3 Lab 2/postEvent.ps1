@@ -49,12 +49,12 @@ $headers = @{
 
 
 
-for ($i = 0; $i -lt [string]$numberOfEvents; $i++) {
+for ($i = 1; $i -lt [string]$numberOfEvents; $i++) {
   
-  Write-Host "Sending event $i to eventhub"
+  
   $rand = Get-Random -Minimum 25 -Maximum 100
   $body = "{'DeviceId':'dev-$i', 'Temperature':'$rand'}"
-
+  Write-Host "Sending event $i to eventhub `nwith data of $body"  
 # execute the Azure REST API
 Invoke-RestMethod -Uri $URI -Method $method -Headers $headers -Body $body
 
