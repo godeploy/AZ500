@@ -4,43 +4,43 @@
     "parameters": {
         "virtualMachines_Srv_Jump_name": {
             "defaultValue": "Srv-Jump",
-            "type": "String"
+            "type": "string"
         },
         "virtualMachines_Srv_Work_name": {
             "defaultValue": "Srv-Work",
-            "type": "String"
+            "type": "string"
         },
         "virtualNetworks_Test_FW_VN_name": {
             "defaultValue": "Test-FW-VN",
-            "type": "String"
+            "type": "string"
         },
         "networkInterfaces_srv_jump121_name": {
             "defaultValue": "srv-jump121",
-            "type": "String"
+            "type": "string"
         },
         "networkInterfaces_srv_work267_name": {
             "defaultValue": "srv-work267",
-            "type": "String"
+            "type": "string"
         },
         "publicIPAddresses_Srv_Jump_PIP_name": {
             "defaultValue": "Srv-Jump-PIP",
-            "type": "String"
+            "type": "string"
         },
         "networkSecurityGroups_Srv_Jump_nsg_name": {
             "defaultValue": "Srv-Jump-nsg",
-            "type": "String"
+            "type": "string"
         },
         "networkSecurityGroups_Srv_Work_nsg_name": {
             "defaultValue": "Srv-Work-nsg",
-            "type": "String"
+            "type": "string"
         },
         "schedules_shutdown_computevm_srv_jump_name": {
             "defaultValue": "shutdown-computevm-srv-jump",
-            "type": "String"
+            "type": "string"
         },
         "schedules_shutdown_computevm_srv_work_name": {
             "defaultValue": "shutdown-computevm-srv-work",
-            "type": "String"
+            "type": "string"
         }
     },
     "variables": {},
@@ -424,7 +424,7 @@
                         "createOption": "FromImage",
                         "caching": "ReadWrite",
                         "managedDisk": {
-                            "storageAccountType": "Premium_LRS",
+                            "storageAccountType": "Premium_LRS"
                            
                         },
                         "diskSizeGB": 127
