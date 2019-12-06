@@ -5,6 +5,8 @@ $functionkey = ""
 
 $YourURI = "https://$functionappname.azurewebsites.net/api/$functionname`?code=$functionkey"
 
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
 # Try a normal GET
 
 Write-host " This is result of  a normal GET operation calling your HTTP trigger" -ForegroundColor Yellow
