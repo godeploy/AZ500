@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "SQL Server Name": {
-            "defaultValue": "az500Mod3Lab3Server",
+            "defaultValue": "[concat('az500Mod3Lab3Server-', uniquestring(resourceGroup().id))]",
             "type": "string"
         }
     },
